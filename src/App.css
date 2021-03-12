@@ -1,5 +1,154 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;600&display=swap");
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  background: url("./assets/background.jpg");
+  background-size: contain;
+  font-family: Lato;
+  font-weight: 300;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  background: white;
+  height: 49px;
+  padding-top: 5px;
+  border: 1px solid rgb(237, 239, 241);
+}
+
+.header-container {
+  height: 255px;
+  padding: 8px 16px;
+}
+
+.header {
+  font-size: 36pt;
+  font-weight: 100;
+  color: white;
+  letter-spacing: 70px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.title-container {
+  background: white;
+  height: 78px;
+}
+
+.title {
+  margin: 0;
+  padding-left: 300px;
+  padding-top: 12px;
+  font-weight: 600;
+  font-size: 22pt;
+}
+
+.mini-title {
+  margin: 0;
+  padding-left: 300px;
+  font-weight: 400;
+  color: gray;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: rgb(55, 60, 63);
+  height: 100vh;
+  padding: 20px;
+}
+
+.info-area {
+  padding-left: 30px;
+}
+
+.new-post {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  max-width: 650px;
+  height: 55px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  padding-right: 10px;
+}
+
+.new-post-input {
+  background-color: rgb(246, 247, 248);
+  width: 450px;
+  height: 35px;
+  margin-top: 10px;
+  border: 1px solid rgb(236, 236, 236);
+  border-radius: 4px;
+  font-weight: 100;
+  padding-left: 20px;
+}
+
+.post-container {
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 15px;
+  max-width: 650px;
+  background: white;
+  border-radius: 3px;
+}
+
+.post-image {
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+
+.post-actions small {
+  padding-right: 20px;
+  font-weight: 400;
+}
+
+.post-text {
+  padding: 10px;
+}
+
+.vote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: rgb(215, 216, 217);
+  border-radius: 3px 0px 0px 3px;
+  white-space: normal;
+  overflow: hidden;
+  font-weight: 400;
+}
+
+.about {
+  height: 350px;
+  width: 300px;
+  background-color: rgb(100, 109, 114);
+  border: 1px solid rgb(80, 87, 92);
+  border-radius: 4px;
+  color: white;
+}
+
+.about-header {
+  background-color: rgb(55, 60, 63);
+  width: 100%;
+  height: 40px;
+  font-size: 11pt;
+  font-weight: 400;
+  padding: 10px;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.about-text {
+  padding: 10px;
 }

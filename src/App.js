@@ -1,11 +1,23 @@
 import './App.css';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+import Main from './Main.js';
+import Navigation from './Navigation.js';
+import Title from './Title.js';
+import Header from './Header.js';
 
 function App() {
   return (
-    <div className="App">
-      TEST
-
-    </div>
+    <>
+    <Navigation />
+    <Header />
+    <Title />
+    <Main />
+    </>
   );
 }
 
