@@ -3,10 +3,13 @@ import Votes from "./Votes.js";
 import db from "./db.js";
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
-  // const timePassed = () => {
-    
-  // }
+  const [posts, setPosts] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const timePassed = (postTimestamp) => {
+    const actualDate = new Date().getTime()/1000;
+    return Math.round((actualDate - postTimestamp)/3600/24);
+  }
   
   useEffect(() => {
     db.collection('posts')
@@ -14,6 +17,7 @@ const Posts = () => {
     .then((data) => {
       const result = data.docs.map((doc) => doc.data())
       setPosts(result);
+      setIsLoading(false);
       console.log(result);
     })
     .catch((error) => {
@@ -23,14 +27,15 @@ const Posts = () => {
   
   return (
     <>
-      {posts.map((post) => (
+      {isLoading && <center><div className="lds-ring"><div></div><div></div><div></div><div></div></div></center>}
+      {posts && posts.map((post) => (
         <div key={post.id} className="post-container">
           <div className="vote-container">
             <Votes votecount={post.score} owner={post.owner} vote={post.vote}/>
           </div>
           <div className="post-text-container">
           <div className="post-text">
-            <small className="posted-by">Posted by {post.owner} {post.timestamp} ago</small>
+            <small className="posted-by">Posted by {post.owner} {timePassed(post.timestamp)} hours ago</small>
             <h3>
               {post.title}
             </h3>
