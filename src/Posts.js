@@ -4,14 +4,17 @@ import db from "./db.js";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-
+  // const timePassed = () => {
+    
+  // }
   
   useEffect(() => {
     db.collection('posts')
     .get()
     .then((data) => {
-      const results = data.docs.map((doc) => doc.data())
-      setPosts(results);
+      const result = data.docs.map((doc) => doc.data())
+      setPosts(result);
+      console.log(result);
     })
     .catch((error) => {
       console.error(error);
@@ -23,16 +26,15 @@ const Posts = () => {
       {posts.map((post) => (
         <div key={post.id} className="post-container">
           <div className="vote-container">
-            <Votes />
+            <Votes votecount={post.score} owner={post.owner} vote={post.vote}/>
           </div>
+          <div className="post-text-container">
           <div className="post-text">
-            <small>{post.title}</small>
+            <small className="posted-by">Posted by {post.owner} {post.timestamp} ago</small>
             <h3>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Distinctio similique sunt, cumque aspernatur, ducimus voluptatem
-              porro optio quibusdam tenetur nobis facilis quae maiores nostrum,
-              voluptatum quidem nihil? Totam, doloremque quam.
+              {post.title}
             </h3>
+          </div>
             <div className="post-actions">
               <small>123 Comments</small>
               <small>Award</small>

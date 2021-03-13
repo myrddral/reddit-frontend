@@ -7,9 +7,15 @@ const About = () => {
         </div>
         <div className="about-text">
           <p>
-            Share & discuss informative content on: * Astrophysics * Cosmology *
-            Space Exploration * Planetary Science * Astrobiology
+            Share & discuss informative content on: 
           </p>
+            <ul>
+            <li>Astrophysics</li>
+            <li>Cosmology</li>
+            <li>Space Exploration</li>
+            <li>Planetary Science</li>
+            <li>Astrobiology</li>
+            </ul>
         </div>
       </div>
     </>
