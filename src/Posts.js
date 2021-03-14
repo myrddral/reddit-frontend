@@ -7,15 +7,15 @@ const Posts = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const timePassed = (postTimestamp) => {
-    const actualDate = new Date().getTime()/1000;
-    return Math.round((actualDate - postTimestamp)/3600/24);
+    const actualTimestamp = new Date().getTime()/1000;
+    return Math.round((actualTimestamp - postTimestamp)/3600);
   }
   
   useEffect(() => {
     db.collection('posts')
     .get()
     .then((data) => {
-      const result = data.docs.map((doc) => doc.data())
+      const result = data.docs.map((doc) => ({id: doc.id, ...doc.data()}))
       setPosts(result);
       setIsLoading(false);
       console.log(result);
@@ -52,6 +52,7 @@ const Posts = () => {
               className="post-image"
               alt="post-content"
               src={post.url}
+              style={{height: 110, width:140}}
             />
           </div>
         </div>
