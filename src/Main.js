@@ -1,3 +1,5 @@
+import Title from "./Title.js";
+import Header from "./Header.js";
 import Posts from "./Posts.js";
 import About from "./About.js";
 import NewPost from "./NewPost.js";
@@ -7,6 +9,8 @@ import SubmitPost from "./SubmitPost.js";
 const Main = () => {
   return (
     <>
+      <Header />
+      <Title />
       <div className="main">
         <div className="content-area">
           <Router>

@@ -18,7 +18,6 @@ const Posts = () => {
         const result = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setPosts(result);
         setIsPending(false);
-        console.log(result);
       })
       .catch((error) => {
         console.error(error);

@@ -1,16 +1,27 @@
 import "./App.css";
+import Signup from "./Signup.js";
+import Login from "./Login.js";
 import Main from "./Main.js";
 import Navigation from "./Navigation.js";
-import Title from "./Title.js";
-import Header from "./Header.js";
+import Profile from "./Profile.js";
+import PrivateRoute from "./PrivateRoute.js"
+import { AuthProvider } from "./auth";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Navigation />
-      <Header />
-      <Title />
-      <Main />
+      <Router>
+        <AuthProvider>
+          <Navigation />
+          <Switch>
+            <PrivateRoute exact path="/" component={Main} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/profile" component={Profile} />
+          </Switch>
+        </AuthProvider>
+      </Router>
     </>
   );
 }

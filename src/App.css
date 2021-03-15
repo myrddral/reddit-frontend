@@ -24,6 +24,12 @@ nav {
   border: 1px solid rgb(237, 239, 241);
 }
 
+nav button {
+  height: 20px;
+  padding: 10px;
+  margin: 0px;
+}
+
 .header-container {
   height: 255px;
   padding: 8px 16px;
@@ -79,7 +85,7 @@ nav {
 }
 
 .content-area {
-  max-width: 650px;
+  width: 650px;
 }
 
 .info-area {
