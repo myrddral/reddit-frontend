@@ -36,9 +36,9 @@ const Votes = (props) => {
 
     return ( 
       <>
-      <img src={drawUpvoteArrow()} onClick={() => {handleClick(+1)}} alt="upvote-button" />
+      <img style={{cursor: 'pointer'}} src={drawUpvoteArrow()} onClick={() => {handleClick(+1)}} alt="upvote-button" />
       <div className="counter">{voteCountFormatter()}</div>
-      <img src={drawDownvoteArrow()} onClick={() => {handleClick(-1)}} alt="downvote-button" />
+      <img style={{cursor: 'pointer'}} src={drawDownvoteArrow()} onClick={() => {handleClick(-1)}} alt="downvote-button" />
       </>
     );
 }
