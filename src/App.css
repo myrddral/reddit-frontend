@@ -121,9 +121,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 8px;
-  padding-bottom: 12px;
-  padding-right: 65px;
+  padding: 8px 65px 12px 10px;
 }
 
 .vote-container {
@@ -201,3 +199,26 @@ nav {
     transform: rotate(360deg);
   }
 }
+
+/* TOOLTIP FOR TIME PASSED */
+
+/* Tooltip text */
+.timestamp .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(255, 235, 209);
+  color: rgb(151, 106, 63);
+  text-align: center;
+  font-size: 8pt;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+/* .timestamp:hover .tooltiptext {
+  visibility: visible;
+} */
