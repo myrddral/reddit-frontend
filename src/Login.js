@@ -1,9 +1,9 @@
 import { useAuth } from "./auth";
 import { useRef, useState } from "react";
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import "./signup.css";
 
-const Login = () => {
+const Login = ({setIsLoggedin, setModalContent}) => {
   const { login } = useAuth()
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -23,6 +23,7 @@ const Login = () => {
       setError('Failed to sign in')
     }
     setLoading(false)
+    setIsLoggedin(true)
   }
 
   return (
@@ -45,7 +46,7 @@ const Login = () => {
             Log In
           </button>
         </form>
-        <p>Need an account? <Link to="/signup">Sign Up!</Link></p>
+        <p>Need an account? <span onClick={() => setModalContent('signup')} style={{cursor: 'pointer', textDecoration: 'underline'}}>Sign Up!</span></p>
       </div>
     </>
   );

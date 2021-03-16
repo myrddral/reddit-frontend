@@ -1,9 +1,9 @@
 import { useAuth } from "./auth";
 import { useRef, useState } from "react";
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import "./signup.css";
 
-const Signup = () => {
+const Signup = ({setModalContent}) => {
   const { registration } = useAuth()
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -58,7 +58,7 @@ const Signup = () => {
             Sign Up
           </button>
         </form>
-        <p>Do you have an account? <Link to="/login">Log In!</Link></p>
+        <p>Do you have an account? <span onClick={() => setModalContent('login')} style={{cursor: 'pointer', textDecoration: 'underline'}}>Log In!</span></p>
       </div>
     </>
   );

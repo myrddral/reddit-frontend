@@ -24,10 +24,20 @@ nav {
   border: 1px solid rgb(237, 239, 241);
 }
 
+.nav-buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
 nav button {
-  height: 20px;
+  height: 40px;
   padding: 10px;
   margin: 0px;
+}
+
+.loggedin-user-email {
+  padding-top: 8px;
+  padding-right: 10px;
 }
 
 .header-container {
