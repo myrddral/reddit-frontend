@@ -1,24 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import "./SubmitPost.css";
 import db from "./db";
+import { useAuth } from "./auth.js";
 
 const SubmitPost = () => {
-  const [isPending, setIsPending] = useState(false);
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
-  const [owner, setOwner] = useState("anonymous");
-  const [score, setScore] = useState(0);
-  const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000));
-  const [vote, SetVote] = useState(0);
-  const [comments, setComments] = useState([]);
-  const history = useHistory();
+  const [isPending, setIsPending] = useState(false)
+  const [title, setTitle] = useState("")
+  const [url, setUrl] = useState("")
+  const [owner, setOwner] = useState("anonymous")
+  const [score] = useState(0)
+  const timestamp = Math.floor(Date.now() / 1000)
+  const [vote] = useState(0)
+  const [comments] = useState([])
+  const history = useHistory()
+  const { currentUser } = useAuth()
+
+  useEffect(() => {
+    setOwner(`${currentUser.displayName}`)
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = { title, url, owner, score, timestamp, vote, comments };
-    setIsPending(true);
+    console.log(owner)
+    const formData = { title, url, owner, score, timestamp, vote, comments }
+    setIsPending(true)
     setTimeout(() => {     
         db.collection("posts")
           .doc()
@@ -27,11 +34,11 @@ const SubmitPost = () => {
             console.log("Document successfully written!");
           })
           .catch((error) => {
-            console.error("Error writing document: ", error);
+            console.error("Error writing document: ", error)
           });
-        setIsPending(false);
-        history.push('/');
-    }, 1000);
+        setIsPending(false)
+        history.push('/')
+    }, 1000)
   };
 
   return (

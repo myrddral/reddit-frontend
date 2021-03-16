@@ -35,7 +35,7 @@ const Signup = ({setModalContent}) => {
       <div className="signup-main">
         <h2>Sign Up</h2>
         {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit}>
+        <form className="login-signup-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" ref={emailRef} required />
           <label htmlFor="password">Password</label>

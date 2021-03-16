@@ -9,7 +9,7 @@ h2 {
   margin-top: 0px;
 }
 
-form {
+.login-signup-form {
   display: flex;
   flex-direction: column;
   width: 250px;

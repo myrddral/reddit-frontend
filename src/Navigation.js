@@ -21,7 +21,11 @@ const Navigation = () => {
         alt="website logo"
       />
       <div className="nav-buttons-container">
-      {currentUser && <div className="loggedin-user-email">You are logged in as: <strong>{currentUser.email}</strong></div>}
+      {currentUser && <div className="loggedin-user-email">You are logged in,
+      {currentUser.displayName !== null && <span> {currentUser.displayName}</span>}
+      {currentUser.displayName === null && <span>anonymous</span>}
+      
+      </div>}
       {currentUser && <Link to="/profile"><button>Profile</button></Link>}
       {currentUser && <button onClick={handleLogout}>Log Out</button>}
       {!currentUser && <button onClick={() => setShow(true)}>Log In</button>}

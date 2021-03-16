@@ -44,7 +44,6 @@ textarea {
 
 #submit-button-pending {
   position: relative;
-  top: 19px;
   width: 100px;
   height: 37px;
   background-color: rgb(72, 164, 219);
@@ -62,7 +61,7 @@ textarea {
 
 .lds-ellipsis {
   width: 40px;
-  height: 40px;
+  height: 9px;
 }
 .lds-ellipsis div {
   margin-left: 12px;

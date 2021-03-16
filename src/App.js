@@ -1,6 +1,4 @@
 import "./App.css";
-import Signup from "./Signup.js";
-import Login from "./Login.js";
 import Main from "./Main.js";
 import Navigation from "./Navigation.js";
 import Profile from "./Profile.js";
@@ -16,8 +14,6 @@ function App() {
           <Navigation />
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>
         </AuthProvider>

@@ -5,8 +5,12 @@ import About from "./About.js";
 import NewPost from "./NewPost.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubmitPost from "./SubmitPost.js";
+import PrivateRoute from "./PrivateRoute.js";
+import { useAuth } from './auth.js'
 
 const Main = () => {
+  const { currentUser } = useAuth()
+
   return (
     <>
       <Header />
@@ -16,12 +20,12 @@ const Main = () => {
           <Router>
             <Switch>
               <Route exact path="/">
-                <NewPost />
+                {currentUser && <NewPost />}
                 <Posts />
               </Route>
-              <Route path="/submit">
+              <PrivateRoute path="/submit">
                 <SubmitPost />
-              </Route>
+              </PrivateRoute>
             </Switch>
           </Router>
         </div>
