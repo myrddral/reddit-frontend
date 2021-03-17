@@ -5,11 +5,12 @@ import About from "./About.js";
 import NewPost from "./NewPost.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubmitPost from "./SubmitPost.js";
+import PostDetails from "./PostDetails.js";
 import PrivateRoute from "./PrivateRoute.js";
-import { useAuth } from './auth.js'
+import { useAuth } from "./auth.js";
 
 const Main = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <>
@@ -25,6 +26,9 @@ const Main = () => {
               </Route>
               <PrivateRoute path="/submit">
                 <SubmitPost />
+              </PrivateRoute>
+              <PrivateRoute path="/postdetails">
+                <PostDetails />
               </PrivateRoute>
             </Switch>
           </Router>

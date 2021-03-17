@@ -13,7 +13,7 @@ const Login = ({setIsLoggedin, setModalContent}) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    
     try {
       setError('')
       setLoading(true)
@@ -25,7 +25,7 @@ const Login = ({setIsLoggedin, setModalContent}) => {
     setLoading(false)
     setIsLoggedin(true)
   }
-
+  
   return (
     <>
       <div className="signup-main">

@@ -13,6 +13,7 @@ const Posts = () => {
 
   useEffect(() => {
     db.collection("posts")
+    .orderBy('timestamp', 'desc')
       .get()
       .then((data) => {
         const result = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));

@@ -19,7 +19,7 @@ const SubmitPost = () => {
 
   useEffect(() => {
     setOwner(`${currentUser.displayName}`)
-  }, []);
+  }, [currentUser.displayName]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
