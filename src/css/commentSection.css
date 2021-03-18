@@ -41,6 +41,7 @@
 }
 
 .commenter {
+  padding-top: 10px;
   padding-bottom: 3px;
 }
 
@@ -50,5 +51,6 @@
 
 #submit-comment-button {
     margin-top: 10px;
+    margin-bottom: 0px;
     align-self: flex-end;
 }
