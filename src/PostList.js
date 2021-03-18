@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Votes from "./Votes.js";
 import db from "./db.js";
 
@@ -13,7 +14,7 @@ const Posts = () => {
 
   useEffect(() => {
     db.collection("posts")
-    .orderBy('timestamp', 'desc')
+      .orderBy("timestamp", "desc")
       .get()
       .then((data) => {
         const result = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -47,32 +48,36 @@ const Posts = () => {
                 vote={post.vote}
               />
             </div>
-            <div className="post-text-container">
-              <div className="post-text">
-                <small className="posted-by">
-                  Posted by {post.owner}{" "}
-                  <span className="timestamp">
-                    {timePassed(post.timestamp)} hours ago
-                    <span className="tooltiptext">{new Date(post.timestamp).toLocaleString()}</span>
+            <Link className="post-link-container" to={`/postdetails/${post.id}`}>
+              <div className="post-text-container">
+                <div className="post-text">
+                  <small className="posted-by">
+                    Posted by {post.owner}{" "}
+                    <span className="timestamp">
+                      {timePassed(post.timestamp)} hours ago
+                      <span className="tooltiptext">
+                        {new Date(post.timestamp).toLocaleString()}
+                      </span>
                     </span>
-                </small>
-                <h4>{post.title}</h4>
+                  </small>
+                  <h4>{post.title}</h4>
+                </div>
+                <div className="post-actions">
+                  <small>123 Comments</small>
+                  <small>Award</small>
+                  <small>Share</small>
+                  <small>Save</small>
+                </div>
               </div>
-              <div className="post-actions">
-                <small>123 Comments</small>
-                <small>Award</small>
-                <small>Share</small>
-                <small>Save</small>
-              </div>
-            </div>
             <div className="post-image">
               <img
                 className="post-image"
                 alt="post-content"
                 src={post.url}
                 style={{ height: 110, width: 140 }}
-              />
+                />
             </div>
+        </Link>
           </div>
         ))}
     </>

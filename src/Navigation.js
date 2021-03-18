@@ -3,14 +3,17 @@ import LoginSignupModal from './LoginSignupModal'
 import { Link } from 'react-router-dom'
 import { useAuth } from './auth.js'
 import { useState } from "react";
+import { useHistory } from 'react-router-dom'
 import './navigation.css'
 
 const Navigation = () => {
   const { logout } = useAuth()
   const { currentUser } = useAuth()
   const [show, setShow] = useState(false)
+  const history = useHistory()
 
   async function handleLogout() {
+    history.push('/')
     await logout()
   }
 

@@ -1,6 +1,6 @@
 import Title from "./Title.js";
 import Header from "./Header.js";
-import Posts from "./Posts.js";
+import PostList from "./PostList.js";
 import About from "./About.js";
 import NewPost from "./NewPost.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -22,12 +22,12 @@ const Main = () => {
             <Switch>
               <Route exact path="/">
                 {currentUser && <NewPost />}
-                <Posts />
+                <PostList />
               </Route>
               <PrivateRoute path="/submit">
                 <SubmitPost />
               </PrivateRoute>
-              <PrivateRoute path="/postdetails">
+              <PrivateRoute path="/postdetails/:post_id">
                 <PostDetails />
               </PrivateRoute>
             </Switch>
