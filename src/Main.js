@@ -6,37 +6,40 @@ import NewPost from "./NewPost.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubmitPost from "./SubmitPost.js";
 import PostDetails from "./PostDetails.js";
-import PrivateRoute from "./PrivateRoute.js";
+// import PrivateRoute from "./PrivateRoute.js";
+// import Profile from "./Profile.js";
 import { useAuth } from "./auth.js";
+import Navigation from "./Navigation.js";
 
 const Main = () => {
   const { currentUser } = useAuth();
 
   return (
     <>
-      <Header />
-      <Title />
-      <div className="main">
-        <div className="content-area">
-          <Router>
+      <Router>
+        <Navigation />
+        <Header />
+        <Title />
+        <div className="main">
+          <div className="content-area">
             <Switch>
               <Route exact path="/">
                 {currentUser && <NewPost />}
                 <PostList />
               </Route>
-              <PrivateRoute path="/submit">
+              <Route path="/submit">
                 <SubmitPost />
-              </PrivateRoute>
-              <PrivateRoute path="/postdetails/:post_id">
+              </Route>
+              <Route path="/postdetails/:post_id">
                 <PostDetails />
-              </PrivateRoute>
+              </Route>
             </Switch>
-          </Router>
+          </div>
+          <div className="info-area">
+            <About />
+          </div>
         </div>
-        <div className="info-area">
-          <About />
-        </div>
-      </div>
+      </Router>
     </>
   );
 };
