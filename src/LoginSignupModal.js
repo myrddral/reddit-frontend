@@ -6,16 +6,11 @@ import { useState } from "react"
 
 const LoginSignupModal = (props) => {
   // this value will be updated by the Login component
-  const [isLoggedin, setIsLoggedin] = useState(false)
+  // const [isLoggedin, setIsLoggedin] = useState(false)
   const [modalContent, setModalContent]  = useState('login')
 
   if (!props.show) {
     return null;
-  }
-
-  //close modal when the login procedure is finished
-  if (isLoggedin === true) {
-    props.onClose()
   }
 
   return (
@@ -26,7 +21,7 @@ const LoginSignupModal = (props) => {
               <img src={CloseButton} alt="close" className="close-button" onClick={props.onClose}/>
           </div>
           <div className="modal-body">
-            {modalContent === 'login' && <Login setIsLoggedin={setIsLoggedin} setModalContent={setModalContent}/>}
+            {modalContent === 'login' && <Login props={props} setModalContent={setModalContent}/>}
             {modalContent === 'signup' && <Signup setModalContent={setModalContent}/>}
           </div>
         </div>

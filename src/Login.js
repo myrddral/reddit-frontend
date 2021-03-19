@@ -1,15 +1,13 @@
 import { useAuth } from "./auth";
 import { useRef, useState } from "react";
-import { useHistory } from 'react-router-dom'
 import "./signup.css";
 
-const Login = ({setIsLoggedin, setModalContent}) => {
+const Login = ({props, setModalContent}) => {
   const { login } = useAuth()
   const emailRef = useRef()
   const passwordRef = useRef()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const history = useHistory()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,12 +16,12 @@ const Login = ({setIsLoggedin, setModalContent}) => {
       setError('')
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      history.push('/')
     } catch (error) {
       setError('Failed to sign in')
     }
     setLoading(false)
-    setIsLoggedin(true)
+    //close modal when finished logging in
+    props.onClose()
   }
   
   return (
