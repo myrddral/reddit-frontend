@@ -6,7 +6,6 @@ import { useState } from "react"
 
 const LoginSignupModal = (props) => {
   // this value will be updated by the Login component
-  // const [isLoggedin, setIsLoggedin] = useState(false)
   const [modalContent, setModalContent]  = useState('login')
 
   if (!props.show) {

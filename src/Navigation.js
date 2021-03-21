@@ -13,7 +13,6 @@ const Navigation = () => {
   const history = useHistory()
 
   async function handleLogout() {
-    history.push('/')
     await logout()
   }
 
@@ -21,8 +20,9 @@ const Navigation = () => {
     <nav>
       <img
         src={Logo}
-        style={{ height: 32, width: "auto", margin: 4, paddingLeft: 15 }}
+        style={{ height: 32, width: "auto", margin: 4, paddingLeft: 15, cursor: 'pointer' }}
         alt="website logo"
+        onClick={() => history.push('/')}
       />
       <div className="nav-buttons-container">
       {currentUser && <div className="loggedin-user-email">You are logged in as

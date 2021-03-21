@@ -9,7 +9,18 @@ const Posts = () => {
 
   const timePassed = (postTimestamp) => {
     const actualTimestamp = new Date().getTime() / 1000;
-    return Math.round((actualTimestamp - postTimestamp) / 3600);
+    const minutesPassed = Math.round((actualTimestamp - postTimestamp) / 60);
+    const hoursPassed = Math.round(minutesPassed / 60);
+    const daysPassed = Math.round(hoursPassed / 24);
+    if (minutesPassed < 1) {
+      return `seconds ago`;
+    } else if (hoursPassed < 1) {
+      return `${minutesPassed} minutes ago`;
+    } else if (hoursPassed <= 23) {
+      return `${hoursPassed} hours ago`;
+    } else if (hoursPassed > 23) {
+      return `${daysPassed} days ago`;
+    } 
   };
 
   useEffect(() => {
@@ -48,13 +59,16 @@ const Posts = () => {
                 vote={post.vote}
               />
             </div>
-            <Link className="post-link-container" to={`/postdetails/${post.id}`}>
+            <Link
+              className="post-link-container"
+              to={`/postdetails/${post.id}`}
+            >
               <div className="post-text-container">
                 <div className="post-text">
                   <small className="posted-by">
                     Posted by {post.owner}{" "}
                     <span className="timestamp">
-                      {timePassed(post.timestamp)} hours ago
+                      {timePassed(post.timestamp)}
                       <span className="tooltiptext">
                         {new Date(post.timestamp).toLocaleString()}
                       </span>
@@ -63,21 +77,21 @@ const Posts = () => {
                   <h4>{post.title}</h4>
                 </div>
                 <div className="post-actions">
-                  <small>123 Comments</small>
-                  <small>Award</small>
-                  <small>Share</small>
-                  <small>Save</small>
+                  <small>{Object.keys(post.comments).length} Comments</small>
+                  <small style={{ color: "lightgray" }}>Award</small>
+                  <small style={{ color: "lightgray" }}>Share</small>
+                  <small style={{ color: "lightgray" }}>Save</small>
                 </div>
               </div>
-            <div className="post-image">
-              <img
-                className="post-image"
-                alt="post-content"
-                src={post.url}
-                style={{ height: 110, width: 140 }}
+              <div className="post-image">
+                <img
+                  className="post-image"
+                  alt="post-content"
+                  src={post.url}
+                  style={{ height: 110, width: 140 }}
                 />
-            </div>
-        </Link>
+              </div>
+            </Link>
           </div>
         ))}
     </>

@@ -4,7 +4,18 @@ const Post = ({post}) => {
 
   const timePassed = (postTimestamp) => {
     const actualTimestamp = new Date().getTime() / 1000;
-    return Math.round((actualTimestamp - postTimestamp) / 3600);
+    const minutesPassed = Math.round((actualTimestamp - postTimestamp) / 60);
+    const hoursPassed = Math.round(minutesPassed / 60);
+    const daysPassed = Math.round(hoursPassed / 24);
+    if (minutesPassed < 1) {
+      return `seconds ago`;
+    } else if (hoursPassed < 1) {
+      return `${minutesPassed} minutes ago`;
+    } else if (hoursPassed <= 23) {
+      return `${hoursPassed} hours ago`;
+    } else if (hoursPassed > 23) {
+      return `${daysPassed} days ago`;
+    } 
   };
 
   return (

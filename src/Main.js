@@ -3,6 +3,7 @@ import Header from "./Header.js";
 import PostList from "./PostList.js";
 import About from "./About.js";
 import NewPost from "./NewPost.js";
+import Profile from "./Profile.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubmitPost from "./SubmitPost.js";
 import PostDetails from "./PostDetails.js";
@@ -26,6 +27,9 @@ const Main = () => {
               <Route exact path="/">
                 {currentUser && <NewPost />}
                 <PostList />
+              </Route>
+              <Route path="/profile">
+                {currentUser && <Profile /> }
               </Route>
               <Route path="/submit">
                 <SubmitPost />
