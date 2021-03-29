@@ -30,7 +30,7 @@ nav {
   width: 100%;
   background: white;
   height: 49px;
-  padding-top: 5px;
+  padding: 5px;
   border: 1px solid rgb(237, 239, 241);
 }
 
@@ -106,7 +106,7 @@ nav button {
 }
 
 .content-area {
-  width: 650px;
+  max-width: 650px;
 }
 
 .info-area {
@@ -126,7 +126,7 @@ nav button {
 
 .new-post-input {
   background-color: rgb(246, 247, 248);
-  width: 500px;
+  width: 100%;
   height: 40px;
   margin-top: 7px;
   border: 1px solid rgb(236, 236, 236);
@@ -245,6 +245,26 @@ nav button {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* DIFFERENT SCROOL SPEED FOR ELEMENTS */
+
+.forefront-element {
+  -webkit-transform: translateZ(999px) scale(.7);
+  transform: translateZ(999px) scale(.7);
+  z-index: 1;
+}
+
+.base-element {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  z-index: 4;
+}
+
+.background-element {
+  -webkit-transform: translateZ(-999px) scale(2);
+  transform: translateZ(-999px) scale(2);
+  z-index: 3;
 }
 
 /* TOOLTIP FOR TIME PASSED */

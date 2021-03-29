@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useHistory } from 'react-router-dom'
 import "./signup.css";
 
-const Signup = ({setModalContent}) => {
+const Signup = ({props, setModalContent}) => {
   const { registration } = useAuth()
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -28,6 +28,8 @@ const Signup = ({setModalContent}) => {
       setError('Failed to create an account')
     }
     setLoading(false)
+    //close modal when finished logging in
+    props.onClose()
   }
 
   return (

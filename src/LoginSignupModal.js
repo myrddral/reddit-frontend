@@ -21,7 +21,7 @@ const LoginSignupModal = (props) => {
           </div>
           <div className="modal-body">
             {modalContent === 'login' && <Login props={props} setModalContent={setModalContent}/>}
-            {modalContent === 'signup' && <Signup setModalContent={setModalContent}/>}
+            {modalContent === 'signup' && <Signup props={props} setModalContent={setModalContent}/>}
           </div>
         </div>
       </div>
