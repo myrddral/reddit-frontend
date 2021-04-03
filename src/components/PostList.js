@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Votes from "./Votes.js";
-import db from "./db.js";
+import db from "../backend/db.js";
 
 const Posts = () => {
   const [posts, setPosts] = useState(null);

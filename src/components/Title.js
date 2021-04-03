@@ -1,4 +1,4 @@
-import SubredditAvatar from './assets/subreddit_avatar.png'
+import SubredditAvatar from '../assets/subreddit_avatar.png'
 
 const Title = () => {
     return ( 

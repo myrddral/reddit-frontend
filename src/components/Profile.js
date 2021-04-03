@@ -1,5 +1,5 @@
-import "./profile.css";
-import { useAuth } from "./auth.js";
+import "../css/profile.css";
+import { useAuth } from "../backend/auth.js";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 

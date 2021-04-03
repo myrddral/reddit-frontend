@@ -1,7 +1,7 @@
 import Login from "./Login"
 import Signup from "./Signup"
-import "./modal.css"
-import CloseButton from "./assets/close-24px.svg"
+import "../css/modal.css"
+import CloseButton from "../assets/close-24px.svg"
 import { useState } from "react"
 
 const LoginSignupModal = (props) => {

@@ -1,11 +1,11 @@
-import Logo from "./assets/logo.svg";
+import Logo from "../assets/logo.svg";
 import LoginSignupModal from "./LoginSignupModal";
-import { useAuth } from "./auth.js";
+import { useAuth } from "../backend/auth.js";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import "./navigation.css";
+import "../css/navigation.css";
 
 const Navigation = () => {
   const { logout } = useAuth();

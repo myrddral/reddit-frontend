@@ -9,7 +9,7 @@ import SubmitPost from "./SubmitPost.js";
 import PostDetails from "./PostDetails.js";
 // import PrivateRoute from "./PrivateRoute.js";
 // import Profile from "./Profile.js";
-import { useAuth } from "./auth.js";
+import { useAuth } from "../backend/auth.js";
 import Navigation from "./Navigation.js";
 
 const Main = () => {

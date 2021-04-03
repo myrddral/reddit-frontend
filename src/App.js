@@ -1,7 +1,7 @@
-import "./App.css";
-import Main from "./Main.js";
+import "./css/App.css";
+import Main from "./components/Main.js";
 
-import { AuthProvider } from "./auth";
+import { AuthProvider } from "./backend/auth";
 
 function App() {
   return (

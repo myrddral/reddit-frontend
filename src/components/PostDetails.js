@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router";
-import db from "./db.js";
+import db from "../backend/db.js";
 import Post from "./Post.js";
-import "./css/postDetails.css";
+import "../css/postDetails.css";
 import CommentSection from "./CommentSection.js";
 
 const PostDetails = () => {
@@ -13,8 +13,7 @@ const PostDetails = () => {
   useEffect(() => {
     db.collection("posts")
       .doc(`${match.params.post_id}`)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         if (doc.exists) {
           setIsPending(false);
           setPost(doc.data());
@@ -22,9 +21,9 @@ const PostDetails = () => {
           console.log("No such document!");
         }
       })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+      // .catch((error) => {
+      //   console.log("Error getting document:", error);
+      // });
   }, [match.params.post_id]);
 
   return (

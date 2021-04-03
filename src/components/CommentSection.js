@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router";
-import { useAuth } from "./auth.js";
+import { useAuth } from "../backend/auth.js";
 import { v4 as uuidv4 } from "uuid";
-import "./css/commentSection.css";
-import db from "./db";
+import "../css/commentSection.css";
+import db from "../backend/db";
 
 const CommentSection = ({ comments }) => {
   const { currentUser } = useAuth();

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
-import "./SubmitPost.css";
-import db from "./db";
-import { useAuth } from "./auth.js";
+import "../css/SubmitPost.css";
+import db from "../backend/db";
+import { useAuth } from "../backend/auth.js";
 
 const SubmitPost = () => {
   const [isPending, setIsPending] = useState(false)

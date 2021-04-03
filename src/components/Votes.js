@@ -1,9 +1,9 @@
 import { useState } from "react";
-import upvoteArrow from "./assets/upvote.png";
-import upvotedArrow from "./assets/upvoted.png";
-import downvoteArrow from "./assets/downvote.png";
-import downvotedArrow from "./assets/downvoted.png";
-import { useAuth } from "./auth.js";
+import upvoteArrow from "../assets/upvote.png";
+import upvotedArrow from "../assets/upvoted.png";
+import downvoteArrow from "../assets/downvote.png";
+import downvotedArrow from "../assets/downvoted.png";
+import { useAuth } from "../backend/auth.js";
 
 const Votes = (props) => {
   let [votecount, setVotecount] = useState(props.votecount);

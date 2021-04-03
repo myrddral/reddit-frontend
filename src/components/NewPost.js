@@ -1,4 +1,4 @@
-import Avatar from './assets/avatar.png'
+import Avatar from '../assets/avatar.png'
 // import InsertPicture from './assets/insert-image.png'
 // import InsertLink from './assets/insert-link.png'
 import { Link } from "react-router-dom"
