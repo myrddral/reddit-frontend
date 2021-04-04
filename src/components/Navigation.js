@@ -20,7 +20,7 @@ const Navigation = () => {
     if (currentUser && currentUser.displayName !== null) {
       setUserDisplayName(currentUser.displayName);
     } else {
-      return "anonymous";
+      setUserDisplayName('Anonymous')
     }
     setDropdownValue(userDisplayName)
   }, [currentUser,userDisplayName]);
