@@ -14,7 +14,6 @@ const Navigation = () => {
   const [dropdownValue, setDropdownValue] = useState('')
   const [userDisplayName, setUserDisplayName] = useState('')
   const history = useHistory();
-  
 
   useEffect(() => {
     if (currentUser && currentUser.displayName !== null) {

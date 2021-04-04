@@ -12,9 +12,7 @@ const Profile = () => {
     e.preventDefault();
     currentUser
       .updateProfile({
-        displayName: `${nameRef.current.value}`,
-        photoURL:
-          "https://banner2.cleanpng.com/20180715/pao/kisspng-computer-icons-icon-design-user-web-user-icon-5b4ad7c5b9eaf6.9562954315316315577615.jpg",
+        displayName: `${nameRef.current.value}`
       })
       .then(function () {
         console.log("Update successful.");
@@ -35,6 +33,7 @@ const Profile = () => {
         quibusdam iure qui suscipit voluptates. Debitis quis minima fugiat
         libero numquam?
       </div>
+      <img className="user-avatar" src={currentUser.photoURL} alt="user avatar"/>
         <strong>Email: </strong> {currentUser.email}
         <strong style={{ marginTop: 10 }}>Nickname: </strong>
         {currentUser.displayName !== null && name}
