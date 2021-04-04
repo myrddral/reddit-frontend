@@ -1,19 +1,102 @@
-import { useState } from "react";
-import upvoteArrow from "../assets/upvote.png";
-import upvotedArrow from "../assets/upvoted.png";
-import downvoteArrow from "../assets/downvote.png";
-import downvotedArrow from "../assets/downvoted.png";
+import { useState, useEffect } from "react";
+import upvoteArrowImage from "../assets/upvote.png";
+import upvotedArrowImage from "../assets/upvoted.png";
+import downvoteArrowImage from "../assets/downvote.png";
+import downvotedArrowImage from "../assets/downvoted.png";
 import { useAuth } from "../backend/auth.js";
+import db from "../backend/db";
+import firebase from "firebase/app";
 
 const Votes = (props) => {
-  let [votecount, setVotecount] = useState(props.votecount);
   const { currentUser } = useAuth();
+  const [votecount, setVotecount] = useState(props.votecount);
+  const [upVoteArrow, setUpVoteArrow] = useState("");
+  const [downVoteArrow, setDownVoteArrow] = useState("");
+  const [hasUserUpVoted, setHasUserUpVoted] = useState("");
+  const [hasUserDownVoted, setHasUserDownVoted] = useState("");
 
-  const handleClick = (modifier) => {
+  useEffect(() => {
     if (currentUser) {
-      setVotecount(votecount + modifier);
+      setHasUserUpVoted(props.upVotedBy.includes(`${currentUser.email}`));
+      setHasUserDownVoted(props.downVotedBy.includes(`${currentUser.email}`));
+    }
+
+    if (hasUserUpVoted) {
+      setUpVoteArrow(upvotedArrowImage);
     } else {
-      return null
+      setUpVoteArrow(upvoteArrowImage);
+    }
+
+    if (hasUserDownVoted) {
+      setDownVoteArrow(downvotedArrowImage);
+    } else {
+      setDownVoteArrow(downvoteArrowImage);
+    }
+  }, [
+    hasUserUpVoted,
+    hasUserDownVoted,
+    props.upVotedBy,
+    props.downVotedBy,
+    currentUser,
+  ]);
+
+  // console.log(currentUser);
+
+  const handleUpVoteClick = () => {
+    if (currentUser && !hasUserUpVoted) {
+      setVotecount(votecount + 1);
+      db.collection("posts")
+        .doc(`${props.id}`)
+        .update({
+          score: firebase.firestore.FieldValue.increment(1),
+          upVotedBy: firebase.firestore.FieldValue.arrayUnion(
+            `${currentUser.email}`
+          ),
+          downVotedBy: firebase.firestore.FieldValue.arrayRemove(
+            `${currentUser.email}`
+          ),
+        })
+        .then(() => {
+          console.log("Post upvoted!");
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      if (!currentUser) {
+        alert("You must sign in to vote!");
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const handleDownVoteClick = () => {
+    if (currentUser && !hasUserDownVoted) {
+      setVotecount(votecount - 1);
+      db.collection("posts")
+        .doc(`${props.id}`)
+        .update({
+          score: firebase.firestore.FieldValue.increment(-1),
+          downVotedBy: firebase.firestore.FieldValue.arrayUnion(
+            `${currentUser.email}`
+          ),
+          upVotedBy: firebase.firestore.FieldValue.arrayRemove(
+            `${currentUser.email}`
+          ),
+        })
+        .then(() => {
+          console.log("Post downvoted!");
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      if (!currentUser) {
+        alert("You must sign in to vote!");
+      } else {
+        return null;
+      }
     }
   };
 
@@ -25,37 +108,37 @@ const Votes = (props) => {
     }
   };
 
-  const drawUpvoteArrow = () => {
-    if (props.vote === 1) {
-      return upvotedArrow;
-    } else {
-      return upvoteArrow;
-    }
-  };
-  const drawDownvoteArrow = () => {
-    if (props.vote === -1) {
-      return downvotedArrow;
-    } else {
-      return downvoteArrow;
-    }
-  };
+  // const drawUpvoteArrow = () => {
+  //   if (props.upVotedBy.includes(`${currentUser.email}`)) {
+  //     return upvotedArrowImage;
+  //   } else {
+  //     return upvoteArrowImage;
+  //   }
+  // };
+  // const drawDownvoteArrow = () => {
+  //   if (props.downVotedBy.includes(`${currentUser.email}`)) {
+  //     return downvotedArrowImage;
+  //   } else {
+  //     return downvoteArrowImage;
+  //   }
+  // };
 
   return (
     <>
       <img
         style={{ cursor: "pointer" }}
-        src={drawUpvoteArrow()}
+        src={upVoteArrow}
         onClick={() => {
-          handleClick(+1);
+          handleUpVoteClick();
         }}
         alt="upvote-button"
       />
       <div className="counter">{voteCountFormatter()}</div>
       <img
         style={{ cursor: "pointer" }}
-        src={drawDownvoteArrow()}
+        src={downVoteArrow}
         onClick={() => {
-          handleClick(-1);
+          handleDownVoteClick();
         }}
         alt="downvote-button"
       />

@@ -137,22 +137,18 @@ nav button {
 
 .post-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
   max-width: 100%;
   background: white;
   border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 .post-link-container {
   display: flex;
-  justify-content: space-between;
-  max-width: 100%;
-  background: white;
-  border-radius: 4px;
 }
 
 .post-image {
+  align-self: flex-end;
   border-radius: 5px;
   /* padding instead of margin: border radius disappears */
   margin: 5px;
@@ -167,7 +163,7 @@ nav button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
+  max-width: 100%;
   padding: 8px 65px 8px 10px;
 }
 
@@ -176,7 +172,7 @@ nav button {
   flex-direction: column;
   align-items: center;
   width: 35px;
-  padding: 15px;
+  padding: 17px;
   background: rgb(215, 216, 217);
   border-radius: 3px 0px 0px 3px;
   white-space: normal;

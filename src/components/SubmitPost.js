@@ -12,7 +12,8 @@ const SubmitPost = () => {
   const [owner, setOwner] = useState("anonymous")
   const [score] = useState(0)
   const timestamp = Math.floor(Date.now() / 1000)
-  const [vote] = useState(0)
+  const [upVotedBy] = useState([])
+  const [downVotedBy] = useState([])
   const [comments] = useState([])
   const history = useHistory()
   const { currentUser } = useAuth()
@@ -24,7 +25,7 @@ const SubmitPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(owner)
-    const formData = { title, url, owner, score, timestamp, vote, comments }
+    const formData = { title, url, owner, score, timestamp, upVotedBy, downVotedBy, comments }
     setIsPending(true)
     setTimeout(() => {     
         db.collection("posts")

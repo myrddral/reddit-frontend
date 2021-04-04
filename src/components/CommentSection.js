@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router";
 import { useAuth } from "../backend/auth.js";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import "../css/commentSection.css";
 import db from "../backend/db";
 
@@ -30,7 +30,8 @@ const CommentSection = ({ comments }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const uuid = uuidv4().replace(/-/g, "");
+    // const uuid = uuidv4().replace(/-/g, "");
+    const uuid = new Date().getTime();
 
     const commentKey = `comments.${uuid}.comment`;
     const commenterKey = `comments.${uuid}.commenter`;
@@ -86,7 +87,8 @@ const CommentSection = ({ comments }) => {
         <div className="comments-list">
           {commentList &&
             // entry[0] === comment key | entry[1] === comment data
-            Object.entries(commentList).map((entry) => (
+            // why sort doesn't work descending?
+            Object.entries(commentList).sort().map((entry) => (
               <div key={entry[0]} className="comment-container">
                 <small className="commenter">
                   <strong>{entry[1].commenter} </strong>
@@ -94,6 +96,7 @@ const CommentSection = ({ comments }) => {
                 </small>
                 <div className="comment">{entry[1].comment}</div>
               </div>
+              
             ))}
         </div>
       </div>
