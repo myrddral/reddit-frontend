@@ -11,20 +11,19 @@ const Navigation = () => {
   const { logout } = useAuth();
   const { currentUser } = useAuth();
   const [show, setShow] = useState(false);
-  const history = useHistory();
   const [dropdownValue, setDropdownValue] = useState('')
+  const [userDisplayName, setUserDisplayName] = useState('')
+  const history = useHistory();
+  
 
-  const returnUsername = () => {
+  useEffect(() => {
     if (currentUser && currentUser.displayName !== null) {
-      return currentUser.displayName;
+      setUserDisplayName(currentUser.displayName);
     } else {
       return "anonymous";
     }
-  };
-
-  useEffect(() => {
-    setDropdownValue(`${returnUsername()}`)
-  }, []);
+    setDropdownValue(userDisplayName)
+  }, [currentUser,userDisplayName]);
 
   async function handleLogout() {
     await logout();
@@ -35,16 +34,13 @@ const Navigation = () => {
 
   const onSelect = (e) => {
     if (e.value === "Profile") {
-      console.log(dropdownValue);
       history.push("/profile");
     } else if (e.value === "Log Out") {
       handleLogout();
     }
-    setDropdownValue(`${returnUsername()}`)
-    console.log(dropdownValue);
+    setDropdownValue('')
   };
 
-  console.log(dropdownValue);
   return (
     <nav>
       <img
@@ -77,7 +73,7 @@ const Navigation = () => {
               options={options}
               onChange={onSelect}
               value={dropdownValue}
-              placeholder="Select an option"
+              placeholder={userDisplayName}
             />
           </strong>
         )}
