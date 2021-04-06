@@ -11,9 +11,11 @@ import PostDetails from "./PostDetails.js";
 // import Profile from "./Profile.js";
 import { useAuth } from "../backend/auth.js";
 import Navigation from "./Navigation.js";
+import useWindowSize from "../utils/useWindowSize";
 
 const Main = () => {
   const { currentUser } = useAuth();
+  const { width } = useWindowSize();
 
   return (
     <>
@@ -39,9 +41,9 @@ const Main = () => {
               </Route>
             </Switch>
           </div>
-          <div className="info-area">
+          {width > 950 && (<div className="info-area">
             <About />
-          </div>
+          </div>)}
         </div>
       </Router>
     </>
