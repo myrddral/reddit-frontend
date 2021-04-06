@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import db from "../backend/db.js";
 import Post from "./Post.js";
 
@@ -20,19 +20,22 @@ const Posts = () => {
       });
   }, []);
 
+  const loadingAnimation = (
+    <center>
+      <div className="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </center>
+  );
+
   return (
     <>
-      {isPending && (
-        <center>
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </center>
-      )}
-      {posts && posts.map((posts) => <Post key={posts.id} post={posts} />)}
+      {isPending
+        ? loadingAnimation
+        : posts.map((posts) => <Post key={posts.id} post={posts} />)}
     </>
   );
 };

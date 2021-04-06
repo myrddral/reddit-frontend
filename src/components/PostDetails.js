@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router";
 import db from "../backend/db.js";
 import Post from "./Post.js";
@@ -15,33 +15,36 @@ const PostDetails = () => {
       .doc(`${match.params.post_id}`)
       .onSnapshot((doc) => {
         if (doc.exists) {
-          setIsPending(false);
           setPost(doc.data());
         } else {
           console.log("No such document!");
         }
-      })
-      // .catch((error) => {
-      //   console.log("Error getting document:", error);
-      // });
+        setIsPending(false);
+      });
+    // .catch((error) => {
+    //   console.log("Error getting document:", error);
+    // });
   }, [match.params.post_id]);
 
-  return (
-    <>
-    {isPending && (
-        <center>
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </center>
-      )}
-      <Post post={post}/>
-      <CommentSection comments={post.comments} />
-    </>
+  const loadingAnimation = (
+    <center>
+      <div className="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </center>
   );
+
+  const postSection = (
+    <React.Fragment>
+      <Post post={post} />
+      <CommentSection comments={post.comments} />
+    </React.Fragment>
+  );
+
+  return <>{isPending ? loadingAnimation : postSection}</>;
 };
 
 export default PostDetails;

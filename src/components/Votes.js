@@ -12,8 +12,9 @@ const Votes = (props) => {
   const [votecount, setVotecount] = useState(props.votecount);
   const [upVoteArrow, setUpVoteArrow] = useState("");
   const [downVoteArrow, setDownVoteArrow] = useState("");
-  const [hasUserUpVoted, setHasUserUpVoted] = useState("");
-  const [hasUserDownVoted, setHasUserDownVoted] = useState("");
+  const [hasUserUpVoted, setHasUserUpVoted] = useState(false);
+  const [hasUserDownVoted, setHasUserDownVoted] = useState(false);
+
 
   useEffect(() => {
     if (currentUser) {
@@ -57,7 +58,9 @@ const Votes = (props) => {
           ),
         })
         .then(() => {
+          setHasUserUpVoted(true)
           console.log("Post upvoted!");
+          console.log(hasUserUpVoted);
         })
         .catch((error) => {
           console.error("Error writing document: ", error);
@@ -86,7 +89,9 @@ const Votes = (props) => {
           ),
         })
         .then(() => {
+          setHasUserDownVoted(true)
           console.log("Post downvoted!");
+          console.log(hasUserDownVoted);
         })
         .catch((error) => {
           console.error("Error writing document: ", error);
