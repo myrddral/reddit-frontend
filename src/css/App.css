@@ -149,6 +149,11 @@ nav button {
   width: 100%;
 }
 
+.post-title {
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
 .post-image {
   align-self: flex-end;
   border-radius: 5px;
