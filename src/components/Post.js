@@ -1,13 +1,23 @@
 import Votes from "./Votes.js";
 import exitToIcon from "../assets/exit-to.png";
 import { timePassed } from "../utils/utils.js";
-import { useHistory } from "react-router-dom";
-import { Link } from 'react-router-dom'
+import { useHistory, useLocation } from "react-router-dom";
+import { ExternalLink } from 'react-external-link';
 
 const Post = ({ post }) => {
   const history = useHistory();
-  const handlePostClick = (id) => {
-    history.push(`/postdetails/${id}`);
+  const location = useLocation();
+
+  const handlePostClick = (id, e) => {
+    if (e.target.className === 'post-url') {
+    return null
+    } else {
+      if (!location.pathname.includes('postdetails')) {
+        history.push(`/postdetails/${id}`);
+      } else {
+        return null
+      }
+    }
   };
 
   return (
@@ -23,7 +33,7 @@ const Post = ({ post }) => {
         </div>
         <div
           className="post-link-container"
-          onClick={() => handlePostClick(post.id)}
+          onClick={(e) => handlePostClick(post.id, e)}
         >
           <div className="post-text-container">
             <div className="post-text">
@@ -37,16 +47,16 @@ const Post = ({ post }) => {
                 </span>
               </small>
               <h4 className="post-title">{post.title}</h4>
-              <Link to={post.url}>
-              <small>
+              <ExternalLink href={post.url} target='_blank'>
+              <small className="post-url">
                 {post.url.substring(0, 16)}...{" "}
                 <img
                   alt="open link directly"
                   src={exitToIcon}
-                  style={{ maxWidth: 15 }}
+                  style={{ maxWidth: 13, position: 'relative', top: 2 }}
                 />
               </small>
-              </Link>
+              </ExternalLink>
             </div>
             <div className="post-actions">
               {post && (
@@ -57,12 +67,11 @@ const Post = ({ post }) => {
               <small>Save</small>
             </div>
           </div>
-          <div className="post-image">
+          <div className="post-image-container">
             <img
               className="post-image"
               alt="post-content"
               src={post.imgUrl}
-              style={{ height: 110, width: 140 }}
             />
           </div>
         </div>
