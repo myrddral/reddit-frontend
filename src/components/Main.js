@@ -22,7 +22,7 @@ const Main = () => {
       <Router>
         <Navigation />
         <Header />
-        <Title />
+        {width > 650 && <Title />}
         <div className="main">
           <div className="content-area">
             <Switch>

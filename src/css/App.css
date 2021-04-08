@@ -16,7 +16,9 @@ a:visited {
 
 body {
   background: url("../assets/background.jpg");
+  background-color: black;
   background-size: 100%;
+  background-repeat: no-repeat;
   overflow-y: scroll;
   font-family: Lato;
   font-weight: 300;
@@ -51,32 +53,34 @@ nav button {
 }
 
 .header-container {
-  width: 100%;
-  height: 255px;
+  max-height: 255px;
   padding: 8px 16px;
 }
 
 .header {
-  font-size: 36pt;
+  font-size: 6vw;
   font-weight: 100;
   color: white;
-  letter-spacing: 70px;
-  padding-left: 70px;
+  letter-spacing: 12vw;
+  padding-left: 12vw;
   text-align: center;
   padding-top: 80px;
 }
 
 .title-container {
   display: flex;
+  /* max-width: 1200; */
+  width: 100%;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: white;
   max-height: 78px;
-  padding-left: 20px;
+  padding-left: 8vw;
 }
 
 .title {
+  width: 100%;
   margin: 0;
   padding-top: 12px;
   font-weight: 600;
@@ -85,7 +89,6 @@ nav button {
 
 .mini-title {
   margin: 0;
-  padding-right: 850px;
   padding-bottom: 20px;
   font-weight: 400;
   color: gray;
@@ -107,6 +110,7 @@ nav button {
 }
 
 .content-area {
+  width: 100%;
   max-width: 650px;
 }
 
@@ -156,13 +160,17 @@ nav button {
   margin-bottom: 3px;
 }
 
+.post-image-container {
+  /* width: 100px; */
+}
+
 .post-image {
   border-radius: 5px;
   /* padding instead of margin: border radius disappears */
   margin-top: 10px;
   margin-right: 8px;
   margin-bottom: 8px;
-  max-width: 200px;
+  width: 150px;
 }
 
 .post-actions {
@@ -179,7 +187,7 @@ nav button {
   flex-direction: column;
   justify-content: space-between;
   max-width: 100%;
-  padding: 8px 65px 8px 10px;
+  padding: 8px 10px 8px 10px;
 }
 
 .vote-container {
@@ -299,4 +307,20 @@ nav button {
 /* Show the tooltip text when you mouse over the tooltip container */
 .timestamp:hover .tooltiptext {
   visibility: visible;
+}
+
+@media screen and (max-width: 494px) {
+  .post-text-container {
+    max-width: 60%;
+    font-size: 9pt;
+  }
+
+  .post-link-container {
+    max-width: 90%;
+  }
+
+  .post-image {
+    max-width: 100px;
+  }
+
 }
