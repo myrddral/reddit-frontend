@@ -58,11 +58,11 @@ nav button {
 }
 
 .header {
-  font-size: 6vw;
+  font-size: 36pt;
   font-weight: 100;
   color: white;
-  letter-spacing: 12vw;
-  padding-left: 12vw;
+  letter-spacing: 70px;
+  padding-left: 70px;
   text-align: center;
   padding-top: 80px;
 }
@@ -160,10 +160,6 @@ nav button {
   margin-bottom: 3px;
 }
 
-.post-image-container {
-  /* width: 100px; */
-}
-
 .post-image {
   border-radius: 5px;
   /* padding instead of margin: border radius disappears */
@@ -174,6 +170,7 @@ nav button {
 }
 
 .post-actions {
+  width: 270px;
   margin-top: 10px;
 }
 
@@ -309,7 +306,30 @@ nav button {
   visibility: visible;
 }
 
-@media screen and (max-width: 494px) {
+@media screen and (max-width: 768px) {
+  .header {
+    font-size: 6vw;
+    letter-spacing: 12vw;
+    padding-left: 12vw;
+  }
+}
+
+@media screen and (max-width: 523px) {
+  .post-text-container {
+    max-width: 60%;
+    font-size: 12pt;
+  }
+
+  .post-link-container {
+    max-width: 90%;
+  }
+
+  .post-image {
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 460px) {
   .post-text-container {
     max-width: 60%;
     font-size: 9pt;
@@ -320,7 +340,23 @@ nav button {
   }
 
   .post-image {
-    max-width: 100px;
+    max-width: 120px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main {
+    padding: 0px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .main {
+    padding: 0px;
   }
 
+  .post-text-container {
+    max-width: 50%;
+    font-size: 8pt;
+  }
 }
