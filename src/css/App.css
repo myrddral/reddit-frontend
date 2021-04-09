@@ -306,11 +306,29 @@ nav button {
   visibility: visible;
 }
 
+@media screen and (max-width: 950px) {
+  .info-area {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .info-area {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .header {
     font-size: 6vw;
     letter-spacing: 12vw;
     padding-left: 12vw;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .title-container {
+    display: none;
   }
 }
 

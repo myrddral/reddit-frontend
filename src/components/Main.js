@@ -41,9 +41,9 @@ const Main = () => {
               </Route>
             </Switch>
           </div>
-          {width > 950 && (<div className="info-area">
+          <div className="info-area">
             <About />
-          </div>)}
+          </div>
         </div>
       </Router>
     </>
