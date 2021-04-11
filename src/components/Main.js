@@ -8,21 +8,18 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SubmitPost from "./SubmitPost.js";
 import PostDetails from "./PostDetails.js";
 // import PrivateRoute from "./PrivateRoute.js";
-// import Profile from "./Profile.js";
 import { useAuth } from "../backend/auth.js";
 import Navigation from "./Navigation.js";
-import useWindowSize from "../utils/useWindowSize";
 
 const Main = () => {
   const { currentUser } = useAuth();
-  const { width } = useWindowSize();
 
   return (
     <>
       <Router>
         <Navigation />
         <Header />
-        {width > 650 && <Title />}
+        <Title />
         <div className="main">
           <div className="content-area">
             <Switch>
