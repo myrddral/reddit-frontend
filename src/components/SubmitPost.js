@@ -64,7 +64,8 @@ const SubmitPost = () => {
   return (
     <div className="post-editor">
       <h4 style={{ margin: 0, paddingTop: 10, paddingBottom: 10, width: 550 }}>
-        Create a post (currently links with opengraph metadata only)
+        Create a post 
+        <p><small>(currently links with opengraph metadata only)</small></p>
       </h4>
       <form onSubmit={handleSubmit}>
         {/* <textarea

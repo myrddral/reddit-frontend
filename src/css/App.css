@@ -16,7 +16,7 @@ a:visited {
 
 body {
   background: url("../assets/background.jpg");
-  background-color: black;
+  background-color: rgb(55, 60, 63);
   background-size: 100%;
   background-repeat: no-repeat;
   overflow-y: scroll;
