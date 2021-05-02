@@ -15,14 +15,17 @@ a:visited {
 }
 
 body {
-  background: url("../assets/background.jpg");
   background-color: rgb(55, 60, 63);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  overflow-y: scroll;
   font-family: Lato;
   font-weight: 300;
   margin: 0;
+}
+
+.window-main {
+  background: url("../assets/background.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
 }
 
 nav {
@@ -69,14 +72,12 @@ nav button {
 
 .title-container {
   display: flex;
-  /* max-width: 1200; */
   width: 100%;
   flex-direction: row;
-  justify-content: flex-start;
+  padding-left: 15%;
   align-items: center;
   background: white;
   max-height: 78px;
-  padding-left: 8vw;
 }
 
 .title {
@@ -324,15 +325,19 @@ nav button {
     letter-spacing: 12vw;
     padding-left: 12vw;
   }
+
+  .title-container {
+  padding-left: 8%;
+  }
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 718px) {
   .title-container {
     display: none;
   }
 }
 
-@media screen and (max-width: 523px) {
+@media screen and (max-width: 548px) {
   .post-text-container {
     max-width: 60%;
     font-size: 12pt;

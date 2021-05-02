@@ -1,14 +1,15 @@
 import "./css/App.css";
 import Main from "./components/Main.js";
-
 import { AuthProvider } from "./backend/auth";
 
 function App() {
   return (
     <>
-        <AuthProvider>
+      <AuthProvider>
+        <div className="window-main">
           <Main />
-        </AuthProvider>
+        </div>
+      </AuthProvider>
     </>
   );
 }

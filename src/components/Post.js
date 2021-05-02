@@ -53,7 +53,7 @@ const Post = ({ post }) => {
                 <img
                   alt="open link directly"
                   src={exitToIcon}
-                  style={{ maxWidth: 13, position: 'relative', top: 2 }}
+                  style={{ maxWidth: 13 }}
                 />
               </small>
               </ExternalLink>
