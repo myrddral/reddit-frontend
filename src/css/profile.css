@@ -6,6 +6,7 @@
   border-radius: 4px;
   height: 100vh;
   width: 100%;
+  padding-top: 50px;
 }
 
 .profile-button {
@@ -22,17 +23,6 @@
   height: 80px;
   margin-bottom: 20px;
   padding: 5px;
-  border: 5px solid black;
+  border: 3px solid rgb(180, 180, 180);
   border-radius: 100%;
-}
-
-.invisible {
-  color: white;
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
 }
