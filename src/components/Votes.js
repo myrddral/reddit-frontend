@@ -10,99 +10,83 @@ import firebase from "firebase/app";
 const Votes = (props) => {
   const { currentUser } = useAuth();
   const [votecount, setVotecount] = useState(props.votecount);
-  const [upVoteArrow, setUpVoteArrow] = useState("");
-  const [downVoteArrow, setDownVoteArrow] = useState("");
+  const [upVoteArrow, setUpVoteArrow] = useState(upvoteArrowImage);
+  const [downVoteArrow, setDownVoteArrow] = useState(downvoteArrowImage);
   const [hasUserUpVoted, setHasUserUpVoted] = useState(false);
   const [hasUserDownVoted, setHasUserDownVoted] = useState(false);
-
 
   useEffect(() => {
     if (currentUser) {
       setHasUserUpVoted(props.upVotedBy.includes(`${currentUser.email}`));
       setHasUserDownVoted(props.downVotedBy.includes(`${currentUser.email}`));
     }
+  }, [currentUser, props.upVotedBy, props.downVotedBy]);
 
+  useEffect(() => {
     if (hasUserUpVoted) {
       setUpVoteArrow(upvotedArrowImage);
-    } else {
-      setUpVoteArrow(upvoteArrowImage);
+      setDownVoteArrow(downvoteArrowImage);
     }
 
     if (hasUserDownVoted) {
       setDownVoteArrow(downvotedArrowImage);
-    } else {
-      setDownVoteArrow(downvoteArrowImage);
+      setUpVoteArrow(upvoteArrowImage);
     }
   }, [
     hasUserUpVoted,
-    hasUserDownVoted,
-    props.upVotedBy,
-    props.downVotedBy,
-    currentUser,
+    hasUserDownVoted
   ]);
 
-  // console.log(currentUser);
+  const handleVoteClick = (voteDirection) => {
+    if (!currentUser) {
+      alert("You must sign in to vote!");
+    } else if (currentUser && voteDirection === 1 && hasUserUpVoted) {
+      return null;
+    } else if (currentUser && voteDirection === -1 && hasUserDownVoted) {
+      return null;
+    }
 
-  const handleUpVoteClick = () => {
-    if (currentUser && !hasUserUpVoted) {
-      setVotecount(votecount + 1);
-      db.collection("posts")
-        .doc(`${props.id}`)
-        .update({
-          score: firebase.firestore.FieldValue.increment(1),
-          upVotedBy: firebase.firestore.FieldValue.arrayUnion(
-            `${currentUser.email}`
-          ),
-          downVotedBy: firebase.firestore.FieldValue.arrayRemove(
-            `${currentUser.email}`
-          ),
-        })
-        .then(() => {
-          setHasUserUpVoted(true)
+    let updateObject = {};
+
+    if (voteDirection === 1) {
+      updateObject = {
+        score: firebase.firestore.FieldValue.increment(1),
+        upVotedBy: firebase.firestore.FieldValue.arrayUnion(
+          `${currentUser.email}`
+        ),
+        downVotedBy: firebase.firestore.FieldValue.arrayRemove(
+          `${currentUser.email}`
+        ),
+      };
+    } else if (voteDirection === -1) {
+      updateObject = {
+        score: firebase.firestore.FieldValue.increment(-1),
+        downVotedBy: firebase.firestore.FieldValue.arrayUnion(
+          `${currentUser.email}`
+        ),
+        upVotedBy: firebase.firestore.FieldValue.arrayRemove(
+          `${currentUser.email}`
+        ),
+      };
+    }
+    setVotecount(votecount + voteDirection);
+    db.collection("posts")
+      .doc(`${props.id}`)
+      .update(updateObject)
+      .then(() => {
+        if (voteDirection === 1) {
+          setHasUserUpVoted(true);
+          setHasUserDownVoted(false);
           console.log("Post upvoted!");
-          console.log(hasUserUpVoted);
-        })
-        .catch((error) => {
-          console.error("Error writing document: ", error);
-        });
-    } else {
-      if (!currentUser) {
-        alert("You must sign in to vote!");
-      } else {
-        return null;
-      }
-    }
-  };
-
-  const handleDownVoteClick = () => {
-    if (currentUser && !hasUserDownVoted) {
-      setVotecount(votecount - 1);
-      db.collection("posts")
-        .doc(`${props.id}`)
-        .update({
-          score: firebase.firestore.FieldValue.increment(-1),
-          downVotedBy: firebase.firestore.FieldValue.arrayUnion(
-            `${currentUser.email}`
-          ),
-          upVotedBy: firebase.firestore.FieldValue.arrayRemove(
-            `${currentUser.email}`
-          ),
-        })
-        .then(() => {
-          setHasUserDownVoted(true)
+        } else if (voteDirection === -1) {
+          setHasUserDownVoted(true);
+          setHasUserUpVoted(false);
           console.log("Post downvoted!");
-          console.log(hasUserDownVoted);
-        })
-        .catch((error) => {
-          console.error("Error writing document: ", error);
-        });
-    } else {
-      if (!currentUser) {
-        alert("You must sign in to vote!");
-      } else {
-        return null;
-      }
-    }
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to vote: ", error);
+      });
   };
 
   const voteCountFormatter = () => {
@@ -113,28 +97,13 @@ const Votes = (props) => {
     }
   };
 
-  // const drawUpvoteArrow = () => {
-  //   if (props.upVotedBy.includes(`${currentUser.email}`)) {
-  //     return upvotedArrowImage;
-  //   } else {
-  //     return upvoteArrowImage;
-  //   }
-  // };
-  // const drawDownvoteArrow = () => {
-  //   if (props.downVotedBy.includes(`${currentUser.email}`)) {
-  //     return downvotedArrowImage;
-  //   } else {
-  //     return downvoteArrowImage;
-  //   }
-  // };
-
   return (
     <>
       <img
         style={{ cursor: "pointer" }}
         src={upVoteArrow}
         onClick={() => {
-          handleUpVoteClick();
+          handleVoteClick(1);
         }}
         alt="upvote-button"
       />
@@ -143,7 +112,7 @@ const Votes = (props) => {
         style={{ cursor: "pointer" }}
         src={downVoteArrow}
         onClick={() => {
-          handleDownVoteClick();
+          handleVoteClick(-1);
         }}
         alt="downvote-button"
       />
