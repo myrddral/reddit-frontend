@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router";
 import { useAuth } from "../backend/auth.js";
-// import { v4 as uuidv4 } from "uuid";
+import { timePassed } from "../utils/utils.js";
 import "../css/commentSection.css";
 import db from "../backend/db";
 
@@ -18,11 +18,6 @@ const CommentSection = ({ comments }) => {
     commenter = currentUser.displayName;
   }
 
-  const timePassed = (postTimestamp) => {
-    const actualTimestamp = new Date().getTime() / 1000;
-    return Math.round((actualTimestamp - postTimestamp) / 3600);
-  };
-
   useEffect(() => {
     setCommentList(comments)
   }, [comments]);
@@ -30,7 +25,11 @@ const CommentSection = ({ comments }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const uuid = uuidv4().replace(/-/g, "");
+    if (comment.length === 0) {
+      alert('Comment field cannot be empty')
+      return;
+    }
+
     const uuid = new Date().getTime();
 
     const commentKey = `comments.${uuid}.comment`;
@@ -77,11 +76,13 @@ const CommentSection = ({ comments }) => {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             ></textarea>
+            <section className="comment-buttons">
             {!isPending && (
-              <button type="submit" id="submit-comment-button">
+              <button type="submit">
                 Comment
               </button>
             )}
+            </section>
           </form>
         )}
         <div className="comments-list">
@@ -92,7 +93,7 @@ const CommentSection = ({ comments }) => {
               <div key={entry[0]} className="comment-container">
                 <small className="commenter">
                   <strong>{entry[1].commenter} </strong>
-                  <span>{timePassed(entry[1].timestamp)} hours ago</span>
+                  <span>{timePassed(entry[1].timestamp)}</span>
                 </small>
                 <div className="comment">{entry[1].comment}</div>
               </div>

@@ -171,13 +171,17 @@ nav button {
 }
 
 .post-actions {
-  width: 270px;
+  width: 320px;
   margin-top: 10px;
 }
 
 .post-actions small {
   padding-right: 20px;
   font-weight: 400;
+}
+
+.delete-button {
+  color: rgb(255, 65, 65);
 }
 
 .post-text-container {
@@ -334,6 +338,12 @@ nav button {
 @media screen and (max-width: 718px) {
   .title-container {
     display: none;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .post-actions {
+    width: 270px;
   }
 }
 

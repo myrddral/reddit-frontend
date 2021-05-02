@@ -2,22 +2,36 @@ import Votes from "./Votes.js";
 import exitToIcon from "../assets/exit-to.png";
 import { timePassed } from "../utils/utils.js";
 import { useHistory, useLocation } from "react-router-dom";
-import { ExternalLink } from 'react-external-link';
+import { ExternalLink } from "react-external-link";
+import db from "../backend/db.js";
 
-const Post = ({ post }) => {
+const Post = ({ post, postID, isInDetailsView }) => {
   const history = useHistory();
   const location = useLocation();
 
   const handlePostClick = (id, e) => {
-    if (e.target.className === 'post-url') {
-    return null
+    if (e.target.className === "post-url") {
+      return null;
     } else {
-      if (!location.pathname.includes('postdetails')) {
+      if (!location.pathname.includes("postdetails")) {
         history.push(`/postdetails/${id}`);
       } else {
-        return null
+        return null;
       }
     }
+  };
+
+  const handleDelete = () => {
+    db.collection("posts")
+      .doc(postID)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+        history.push('/')
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
   };
 
   return (
@@ -47,15 +61,15 @@ const Post = ({ post }) => {
                 </span>
               </small>
               <h4 className="post-title">{post.title}</h4>
-              <ExternalLink href={post.url} target='_blank'>
-              <small className="post-url">
-                {post.url.substring(0, 16)}...{" "}
-                <img
-                  alt="open link directly"
-                  src={exitToIcon}
-                  style={{ maxWidth: 13 }}
-                />
-              </small>
+              <ExternalLink href={post.url} target="_blank">
+                <small className="post-url">
+                  {post.url.substring(0, 16)}...{" "}
+                  <img
+                    alt="open link directly"
+                    src={exitToIcon}
+                    style={{ maxWidth: 13 }}
+                  />
+                </small>
               </ExternalLink>
             </div>
             <div className="post-actions">
@@ -65,14 +79,15 @@ const Post = ({ post }) => {
               <small>Award</small>
               <small>Share</small>
               <small>Save</small>
+              {isInDetailsView && (
+                <small className="delete-button" onClick={handleDelete}>
+                  Delete
+                </small>
+              )}
             </div>
           </div>
           <div className="post-image-container">
-            <img
-              className="post-image"
-              alt="post-content"
-              src={post.imgUrl}
-            />
+            <img className="post-image" alt="post-content" src={post.imgUrl} />
           </div>
         </div>
       </div>

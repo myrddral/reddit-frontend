@@ -39,7 +39,7 @@ const PostDetails = () => {
 
   const postSection = (
     <React.Fragment>
-      <Post post={post} />
+      <Post post={post} postID={match.params.post_id} isInDetailsView={true}/>
       <CommentSection comments={post.comments} />
     </React.Fragment>
   );
