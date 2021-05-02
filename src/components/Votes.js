@@ -32,14 +32,12 @@ const Votes = (props) => {
       setDownVoteArrow(downvotedArrowImage);
       setUpVoteArrow(upvoteArrowImage);
     }
-  }, [
-    hasUserUpVoted,
-    hasUserDownVoted
-  ]);
+  }, [hasUserUpVoted, hasUserDownVoted]);
 
   const handleVoteClick = (voteDirection) => {
     if (!currentUser) {
       alert("You must sign in to vote!");
+      return;
     } else if (currentUser && voteDirection === 1 && hasUserUpVoted) {
       return null;
     } else if (currentUser && voteDirection === -1 && hasUserDownVoted) {
