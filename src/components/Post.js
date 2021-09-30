@@ -1,13 +1,33 @@
-import Votes from "./Votes.js";
-import exitToIcon from "../assets/exit-to.png";
-import { timePassed } from "../utils/utils.js";
+import { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { ExternalLink } from "react-external-link";
+import { timePassed } from "../utils/utils.js";
+import { useAuth } from "../backend/auth.js";
 import db from "../backend/db.js";
+import Votes from "./Votes.js";
+import exitToIcon from "../assets/exit-to.png";
 
 const Post = ({ post, postID, isInDetailsView }) => {
+  const [ownerName, setOwnerName] = useState("anonymous");
+  const [ownerEmail, setOwnerEmail] = useState("");
+  const { currentUser } = useAuth();
   const history = useHistory();
   const location = useLocation();
+
+  useEffect(() => {
+    db.collection("users")
+      .where("email", "==", `${post.owner}`)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setOwnerName(doc.data().displayName);
+          setOwnerEmail(doc.data().email);
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  }, [post.owner]);
 
   const handlePostClick = (id, e) => {
     if (e.target.className === "post-url") {
@@ -27,12 +47,20 @@ const Post = ({ post, postID, isInDetailsView }) => {
       .delete()
       .then(() => {
         console.log("Document successfully deleted!");
-        history.push('/')
+        history.push("/");
       })
       .catch((error) => {
         console.error("Error removing document: ", error);
       });
   };
+
+  const isPostOwner = () => {
+    if (currentUser && currentUser.email === ownerEmail) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
@@ -52,7 +80,7 @@ const Post = ({ post, postID, isInDetailsView }) => {
           <div className="post-text-container">
             <div className="post-text">
               <small className="posted-by">
-                Posted by {post.owner}{" "}
+                Posted by {ownerName}{" "}
                 <span className="timestamp">
                   {timePassed(post.timestamp)}
                   <span className="tooltiptext">
@@ -63,7 +91,7 @@ const Post = ({ post, postID, isInDetailsView }) => {
               <h4 className="post-title">{post.title}</h4>
               <ExternalLink href={post.url} target="_blank">
                 <small className="post-url">
-                  {post.url.substring(0, 16)}...{" "}
+                  {post.url.substring(0, 18)}...{" "}
                   <img
                     alt="open link directly"
                     src={exitToIcon}
@@ -79,7 +107,7 @@ const Post = ({ post, postID, isInDetailsView }) => {
               <small>Award</small>
               <small>Share</small>
               <small>Save</small>
-              {isInDetailsView && (
+              {(isInDetailsView && isPostOwner()) && (
                 <small className="delete-button" onClick={handleDelete}>
                   Delete
                 </small>

@@ -1,9 +1,10 @@
+import "../css/postDetails.css";
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router";
 import db from "../backend/db.js";
-import Post from "./Post.js";
-import "../css/postDetails.css";
 import CommentSection from "./CommentSection.js";
+import SpinnerRing from "./SpinnerRing.js";
+import Post from "./Post.js";
 
 const PostDetails = () => {
   const [post, setPost] = useState("");
@@ -26,17 +27,6 @@ const PostDetails = () => {
     // });
   }, [match.params.post_id]);
 
-  const loadingAnimation = (
-    <center>
-      <div className="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </center>
-  );
-
   const postSection = (
     <React.Fragment>
       <Post post={post} postID={match.params.post_id} isInDetailsView={true}/>
@@ -44,7 +34,7 @@ const PostDetails = () => {
     </React.Fragment>
   );
 
-  return <>{isPending ? loadingAnimation : postSection}</>;
+  return <>{isPending ? <SpinnerRing /> : postSection}</>;
 };
 
 export default PostDetails;

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import "../css/SubmitPost.css";
-import db from "../backend/db";
-import { useAuth } from "../backend/auth.js";
-import suq from "suq";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { isValidUrl } from "../utils/utils.js";
+import { useAuth } from "../backend/auth.js";
+import { Link } from "react-router-dom";
+import db from "../backend/db";
+import suq from "suq";
+import SpinnerDots from "./SpinnerDots";
 
 const SubmitPost = () => {
   const [isPending, setIsPending] = useState(false);
@@ -20,13 +21,14 @@ const SubmitPost = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    setOwner(`${currentUser.displayName}`);
-  }, [currentUser.displayName]);
+    setOwner(`${currentUser.email}`);
+  }, [currentUser.email]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValidUrl(`${urlToPost}`)) {
       setIsPending(true);
+      // fetch Opengraph metadata for thumbnail and title
       suq(
         `https://infinite-savannah-13185.herokuapp.com/${urlToPost}`,
         function (err, json, body) {
@@ -64,19 +66,12 @@ const SubmitPost = () => {
   return (
     <div className="post-editor">
       <h4 style={{ margin: 0, paddingTop: 10, paddingBottom: 10, width: 550 }}>
-        Create a post 
-        <p><small>(currently links with opengraph metadata only)</small></p>
+        Create a post
+        <p>
+          <small>(currently links with opengraph metadata only)</small>
+        </p>
       </h4>
       <form onSubmit={handleSubmit}>
-        {/* <textarea
-          name="title"
-          id="title"
-          placeholder="Title"
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          autoFocus
-        ></textarea> */}
         <input
           name="url"
           id="url"
@@ -90,19 +85,13 @@ const SubmitPost = () => {
           <Link to="/">
             <button id="cancel-button">CANCEL</button>
           </Link>
-          {!isPending && (
+          {isPending ? (
+            <button type="submit" id="submit-button-pending" disabled>
+              <SpinnerDots />
+            </button>
+          ) : (
             <button type="submit" id="submit-button">
               SUBMIT
-            </button>
-          )}
-          {isPending && (
-            <button type="submit" id="submit-button-pending" disabled>
-              <div className="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
             </button>
           )}
         </div>
