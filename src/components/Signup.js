@@ -1,35 +1,49 @@
-import { useAuth } from "../backend/auth";
-import { useRef, useState } from "react";
-import { useHistory } from 'react-router-dom'
 import "../css/signup.css";
+import { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../backend/auth";
+import db from "../backend/db.js";
 
-const Signup = ({props, setModalContent}) => {
-  const { registration } = useAuth()
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+const Signup = ({ props, setModalContent }) => {
+  const { registration } = useAuth();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  const copyUserToDatabase = (email) => {
+    db.collection("users")
+      .doc()
+      .set({ email: email })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError('Passwords do not match')
+      return setError("Passwords do not match");
     }
 
     try {
-      setError('')
-      setLoading(true)
-      await registration(emailRef.current.value, passwordRef.current.value)
-      history.push('/')
+      setError("");
+      setLoading(true);
+      await registration(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch (error) {
-      setError('Failed to create an account')
+      setError("Failed to create an account");
     }
-    setLoading(false)
+    setLoading(false);
+    copyUserToDatabase(emailRef.current.value);
     //close modal when finished logging in
-    props.onClose()
+    props.onClose();
   }
 
   return (
@@ -60,7 +74,15 @@ const Signup = ({props, setModalContent}) => {
             Sign Up
           </button>
         </form>
-        <p>Do you have an account? <span onClick={() => setModalContent('login')} style={{cursor: 'pointer', textDecoration: 'underline'}}>Log In!</span></p>
+        <p>
+          Do you have an account?{" "}
+          <span
+            onClick={() => setModalContent("login")}
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+          >
+            Log In!
+          </span>
+        </p>
       </div>
     </>
   );

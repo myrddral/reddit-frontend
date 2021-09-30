@@ -3,11 +3,27 @@ import { useAuth } from "../backend/auth.js";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import defaultAvatarImage from "../assets/avatar.png";
+import db from "../backend/db.js";
 
 const Profile = () => {
   const { currentUser } = useAuth();
   const nameRef = useRef();
   const [name, setName] = useState(`${currentUser.displayName}`);
+
+  const copyDisplayNameToDatabase = (name) => {
+    db.collection("users")
+      .where("email", "==", `${currentUser.email}`)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          db.collection("users").doc(doc.id)
+          .update({ displayName: name})
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -18,6 +34,7 @@ const Profile = () => {
       .then(function () {
         console.log("Update successful.");
         setName(`${nameRef.current.value}`);
+        copyDisplayNameToDatabase(nameRef.current.value);
       })
       .catch(function (error) {
         console.log(error);
